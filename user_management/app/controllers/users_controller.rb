@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+    before_action :authorize_request
     def show
         @user = User.find(params[:id])
         @roleofuser = @user.roles

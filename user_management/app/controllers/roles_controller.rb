@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-
+    before_action :authorize_request
     def create
         @role=Role.new(params.require(:role).permit(:role_name))
         if @role.save
