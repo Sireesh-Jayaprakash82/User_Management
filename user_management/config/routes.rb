@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get "/users", to: "user#index"
-  get "/users/:id", to: "user#show"
-  patch "/users/:id", to: "user#edit"
-  post "/users", to: "user#create"
-  delete "/users/:id", to: "user#destory"
+  get "/users", to: "users#index"
+  get "/users/:id", to: "users#show"
+  patch "/users/:id", to: "users#edit"
+  post "/users", to: "users#create"
+  delete "/users/:id", to: "users#destory"
 
 
   get "/roles", to: "role#index"
