@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get "/users", to: "user#index"
+  get "/users/:id", to: "user#show"
+  patch "/users/:id", to: "user#edit"
+  post "/users", to: "user#create"
+  delete "/users/:id", to: "user#destory"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+
+  get "/roles", to: "role#index"
+  post "/roles", to: "role#create"
+  get "/roles/:id", to: "role#show"
+  delete "/roles/:id", to: "role#destory"
+
+  post "/auth/login", to: "authentication#login"
 end
