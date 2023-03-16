@@ -16,7 +16,7 @@ class RolesController < ApplicationController
     if @role.save
         render json: {data: @role}
     else
-        render json: {status: "deleting FAILED"}
+        render json: {status: "Create FAILED"}
     end
   end
 
