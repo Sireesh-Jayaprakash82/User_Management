@@ -3,7 +3,10 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         @roleofuser = @user.roles
-        render json: {data: @user ,roleassigned: @roleofuser}
+        render json: {data: ActiveModelSerializers::SerializableResource.new(@user, serializer: UserSerializer),
+            status: 200,
+          type: 'Success'
+        }
     end
 
     def destroy
