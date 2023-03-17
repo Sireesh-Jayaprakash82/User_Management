@@ -1,18 +1,18 @@
 class RolesController < ApplicationController
   before_action :find_role, only: %i[show]
-  before_action :authorize_request
+  # before_action :authorize_request
   
   def index
-    @roles = Role.all
-    if @roles
-      render json: {data: @roles}, status:200
+    @users = User.active.all
+    if @users
+      render json: {data: @users}, status:200
     else
       render json: {error: "No roles"}
     end
   end
 
   def create
-    @role=Role.new(params.require(:role).permit(:role_name))
+    @role=Role.new(role_params)
     if @role.save
         render json: {data: @role}
     else
@@ -36,6 +36,12 @@ class RolesController < ApplicationController
     else
         render json: {status: "deleting FAILED"}
     end
+  end
+
+  def deactive
+    @user = User.find(params[:id])
+    @user.update(status: 'deactive')
+    render json: {status: "User deleted successfully"}
   end
 
   private
