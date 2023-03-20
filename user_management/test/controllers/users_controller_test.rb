@@ -23,12 +23,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should edit user" do
-    patch users_url(@user), params: { user: { full_name: @user.full_name, email: @user.email, username: @user.username, password: @user.password, role: @role.role_name } }
+    patch user_url(@user.id), params: { user: { full_name: @user.full_name, email: @user.email, username: @user.username, password: @user.password, role: @role.role_name } }
   end
 
   test "should destroy user" do
     assert_difference("User.count", -1) do
-      delete users_url(@user)
+      delete user_url(@user.id)
     end
   end
 

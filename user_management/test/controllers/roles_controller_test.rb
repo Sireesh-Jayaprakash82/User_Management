@@ -18,14 +18,14 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show role" do
-    get roles_url(@role)
+    get role_url(@role)
     assert_response :success
   end
 
 
   test "should destroy role" do
     assert_difference("Role.count", -1) do
-      delete roles_url(@role)
+      delete role_url(@role)
     end
   end
 

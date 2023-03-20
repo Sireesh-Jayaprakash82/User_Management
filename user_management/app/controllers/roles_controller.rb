@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :find_role, only: %i[show]
-  # before_action :authorize_request
+  before_action :authorize_request
   
   def index
     @users = User.active.all

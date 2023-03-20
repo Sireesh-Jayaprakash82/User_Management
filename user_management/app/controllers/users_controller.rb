@@ -3,8 +3,12 @@ class UsersController < ApplicationController
   before_action :authorize_request, except: %i[create]
 
   def index 
-    @users = User.all
-    render json: @users, status:200
+    @users = User.active.all
+    if @users
+      render json: {data: @users}, status:200
+    else
+      render json: {error: "No users"}
+    end
   end
 
   def create
@@ -12,7 +16,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.roles << @role
     if @user.save
-      render json: @user
+      render json: @user 
+    else
+      render json: {error: "Create failed"}
     end
   end
 
@@ -24,14 +30,14 @@ class UsersController < ApplicationController
 
   
   def edit
-    if @user.update(params.require(:user).require(:role))
+    if @user.update(update_params)
       render json: @user, status:200
     else
       render json: {error: "Not updated"}
     end
   end
 
-
+  
   def show
     @user = User.find(params[:id])
     render json: @user, status:200
@@ -58,6 +64,6 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user)
+    params.require(:user).permit(:full_name, :email, :username, :password, :role_name)
   end
 end
