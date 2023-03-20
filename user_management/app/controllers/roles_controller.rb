@@ -38,12 +38,6 @@ class RolesController < ApplicationController
     end
   end
 
-  def deactive
-    @user = User.find(params[:id])
-    @user.update(status: 'deactive')
-    render json: {status: "User deleted successfully"}
-  end
-
   private
 
   def find_role

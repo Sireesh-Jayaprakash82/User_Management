@@ -16,7 +16,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def deactive
+    @user = User.find(params[:id])
+    @user.update(status: 'deactive')
+    render json: {status: "User deleted successfully"}
+  end
 
+  
   def edit
     if @user.update(params.require(:user).require(:role))
       render json: @user, status:200

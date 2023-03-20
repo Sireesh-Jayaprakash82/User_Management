@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :full_name, :email, :username, :password, :roles
+  attributes :id, :full_name, :email, :username, :roles
 
   def roles
     object.roles.pluck(:role_name)
