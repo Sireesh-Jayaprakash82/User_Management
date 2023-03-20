@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: %i[edit]
-  # before_action :authorize_request, except: %i[create]
+  before_action :authorize_request, except: %i[create]
 
   def index 
     @users = User.all
