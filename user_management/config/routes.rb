@@ -13,4 +13,9 @@ Rails.application.routes.draw do
   delete "/roles/:id", to: "roles#destroy"
 
   post "/auth/login", to: "authentication#login"
+
+
+  post "/users/:user_id/roles/:role_id", to: "users#role_assign"
+  delete "/users/:user_id/roles/:role_id", to: "users#remove_role"
+
 end

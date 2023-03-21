@@ -1,54 +1,78 @@
 class UsersController < ApplicationController
   before_action :find_user, only: %i[edit]
-  before_action :authorize_request, except: %i[create]
+  before_action :find_user_by_role, only: %i[role_assign remove_role]
+  # before_action :authorize_request, except: %i[create]
+
+  def role_assign
+    @user.roles << @role
+    if @user.save
+      render json: @user, status:200
+    else
+      render json: @user.errors
+    end
+  end
+
+  def remove_role
+    @user.roles.delete(@role)
+    if @user.save
+      render json: @user, status:200
+    else
+      render json: @user.errors
+    end
+  end
 
   def index 
     @users = User.active.all
     if @users
-      render json: {data: @users}, status:200
+      render json: @users, status:200
     else
-      render json: {error: "No users"}
+      render json: @users.errors
     end
   end
 
   def create
-    @role=Role.find_by(role_name: params.require(:user).require(:role)) 
     @user = User.new(user_params)
-    @user.roles << @role
     if @user.save
       render json: @user 
     else
-      render json: {error: "Create failed"}
+      render json: @user.errors
     end
   end
 
   def deactive
     @user = User.find(params[:id])
-    @user.update(status: 'deactive')
-    render json: {status: "User deleted successfully"}
+    if @user.update(status: 'deactive')
+      render json: {status: "User deactivated"}
+    else
+      render json: @user.errors
+    end
   end
 
   
   def edit
-    if @user.update(update_params)
+    if @user.update(user_params)
       render json: @user, status:200
     else
-      render json: {error: "Not updated"}
+      render json: @user.errors
     end
   end
 
   
   def show
     @user = User.find(params[:id])
-    render json: @user, status:200
+    if @user
+      render json: @user, status:200
+    else
+      render json: @user.errors
+    end
   end
 
   def destroy
-    @User=User.find(params[:id])
-    if @User.destroy
+    @user=User.find(params[:id])
+    if @user.destroy
         render json: {status: "User deleted successfully"}
     else
-        render json: {status: "deleting FAILED"}
+        render json: @user.errors
     end
   end
 
@@ -63,7 +87,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def update_params
-    params.require(:user).permit(:full_name, :email, :username, :password, :role_name)
+  # def update_params
+  #   params.require(:user).permit(:full_name, :email, :username, :password_digest, :role_name)
+  # end
+
+  def find_user_by_role
+    @user = User.find_by(id: params[:user_id])
+    @role = Role.find_by(id: params[:role_id])
   end
+  
 end
