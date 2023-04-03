@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
-  before_action :find_role, only: %i[show]
-  before_action :authorize_request, except: %i[create index ]
+  before_action :find_role, only: %i[show edit]
+  before_action :authorize_request, except: %i[create index]
   
   def index
     @roles = Role.all
@@ -38,6 +38,14 @@ class RolesController < ApplicationController
     end
   end
 
+  def edit
+    if @role.update(role_params)
+      render json: @role, status:200
+    else
+      render json: @role.errors
+    end
+  end
+  
   private
 
   def find_role

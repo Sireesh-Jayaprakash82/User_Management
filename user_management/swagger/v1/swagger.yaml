@@ -68,6 +68,23 @@ paths:
       responses:
         '200':
           description: successful
+    patch:
+      summary: edit role
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role_name:
+                  type: string
+              required:
+              - name
+              - model
     delete:
       summary: delete role
       responses:

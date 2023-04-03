@@ -24,11 +24,14 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "should edit role" do
+    patch role_url(@role.id) params: { role: { role_name: @role.role_name } }, headers: authenticated_header
+  end
+
   test "should show role" do
     get role_url(@role), headers: authenticated_header
     assert_response :success
   end
-
 
   test "should destroy role" do
     assert_difference("Role.count", -1) do
