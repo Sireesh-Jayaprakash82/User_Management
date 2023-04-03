@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :find_role, only: %i[show]
-  # before_action :authorize_request
+  before_action :authorize_request, except: %i[create index ]
   
   def index
     @roles = Role.all
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
     if @user
       render json: {data: @user}, status:200
     else
-      render json: { @user.errors, @role.errors }
+      render json: @user.errors
     end
   end
 

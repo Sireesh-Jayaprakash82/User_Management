@@ -11,3 +11,24 @@ two:
   email: 234@gmail.com
   username: Sav101
   password: password
+
+
+three:
+  full_name: Albert
+  email: zxc@qwe.com
+  username: Albert123
+  password: password
+
+
+four:
+  full_name: Gunthur
+  email: mnb.ewq.com
+  username: Gunt321
+  password: password
+
+
+five:
+  full_name: Joey
+  email: 098.com
+  username: wqerty
+  password: password

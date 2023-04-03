@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   get "/users", to: "users#index"
   get "/users/:id", to: "users#show", as: "user"
   # get "/users/:id", to: "users#show"
@@ -12,10 +14,10 @@ Rails.application.routes.draw do
   get "/roles/:id", to: "roles#show", as: "role"
   delete "/roles/:id", to: "roles#destroy"
 
-  post "/auth/login", to: "authentication#login"
+  post "/auth/login", to: "authentication#login", as: "login"
 
 
-  post "/users/:user_id/roles/:role_id", to: "users#role_assign"
-  delete "/users/:user_id/roles/:role_id", to: "users#remove_role"
+  post "/users/:user_id/roles/:role_id", to: "users#role_assign", as: "user_role"
+  delete "/users/:user_id/roles/:role_id", to: "users#remove_role", as: "user_de_role"
 
 end

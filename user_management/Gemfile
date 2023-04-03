@@ -49,3 +49,6 @@ end
 
 gem 'active_model_serializers'
 gem 'jwt'
+
+gem "rspec-rails", "~> 6.0"
+gem "rswag", "~> 2.8"
